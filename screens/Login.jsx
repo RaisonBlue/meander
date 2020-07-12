@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
   const authenticate = Authenticator({ setError, navigate: navigation.navigate })
 
   return (
-    <ViewBackground>
+    <ViewBackground blurRadius={2}>
       <View style={styles.mainWrapper}>
         <View style={ styles.topHalf }>
           <HeroTitle title="Meander" />

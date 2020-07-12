@@ -3,11 +3,11 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 
 const defaultBackground = require('../assets/bg_default.jpg')
 
-export default function ViewBackground(props) {
+export default function ViewBackground({bgSrc, children, ...otherProps}) {
   return (
     <View style={{ flex: 1 }}>
-      <ImageBackground blurRadius={2} style={ styles.background } source={ props.bgSrc || defaultBackground }>
-        { props.children }
+      <ImageBackground {...otherProps} style={ styles.background } source={ bgSrc || defaultBackground }>
+        { children }
       </ImageBackground>
     </View>
   )
