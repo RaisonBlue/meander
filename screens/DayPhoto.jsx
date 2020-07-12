@@ -16,7 +16,7 @@ export default ({ navigation }) => {
           <ScreenSubTitle title="11.07.2020" />
         </View>
         <Grid data={Array(120).fill({}).map(() => ({source: burstCache('https://picsum.photos/200/300')}))} cols={4}>
-          <Image style={{ height: 100, width: 100 }} />
+          <Image style={{ height: 95, width: 95, margin: 2 }} />
         </Grid>
       </ScrollView>
     </ViewBackground>

@@ -1,29 +1,22 @@
 import React from 'react'
-import { View } from 'react-native'
-import { splitEvery } from 'ramda'
-
-let key = 0
-let lK = 0
+import { FlatList } from 'react-native'
 
 const drawItem = template => (item) => {
   return React.createElement(
     template.type,
-    { ...template.props, key: key++, ...item}
+    { ...template.props, ...item}
   )
 }
 
-const drawLine = (data, template) => {
+export default ({ data=[], cols, children }) => {
   return (
-    <View key={lK++} style={{ flex: 1, flexDirection: "row", marginVertical:10, justifyContent:"space-evenly" }}>  
-      {data.map(drawItem(template))}
-    </View>
-  )
-}
-
-export default ({ style, data=[], cols, children }) => {
-  return (
-    <View style={{ flex: 1, flexDirection: "column", paddingTop: 50 }}>
-      { splitEvery(cols, data).map(line => drawLine(line, children))}
-    </View>
+    <FlatList
+      data={data}
+      renderItem={({ item }) => drawItem(children)(item)}
+      //Setting the number of column
+      numColumns={cols}
+      contentContainerStyle={{ alignItems: "center" }}
+      keyExtractor={(_item, index) => index.toString()}
+    />
   )
 }

@@ -5,6 +5,7 @@ import ViewBackground from '../components/ViewBackground'
 import Bar from '../components/Bar'
 import ScreenTitle from '../components/ScreenTitle'
 import ScreenSubTitle from '../components/ScreenSubTitle'
+import Tag from '../components/Tag'
 import Paragraph from '../components/Paragraph'
 
 export default function App({ navigation }) {
@@ -16,9 +17,9 @@ export default function App({ navigation }) {
           <ScreenSubTitle title="11.07.2020" />
         </View>
         <Bar style={{ paddingVertical: 50 }}>
-          <View style={{ backgroundColor: '#00F', width: 80, height: 60 }} />
-          <View style={{ backgroundColor: '#00F', width: 80, height: 60 }} />
-          <View style={{ backgroundColor: '#00F', width: 80, height: 60 }} />
+          <Tag icon="sun" value="31" units="°C" />
+          <Tag icon="walk" value="42" units="km" />
+          <Tag icon="photo" value="121" units="" />
         </Bar>
         <View style={{ flex: 1 }}>
           <Paragraph>
