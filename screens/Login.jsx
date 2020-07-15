@@ -1,12 +1,12 @@
 import 'react-native-gesture-handler'
 import React, { useState } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import ViewBackground from '../components/ViewBackground'
-import HeroTitle from '../components/HeroTitle'
-import HeroButton from '../components/HeroButton'
-import MTextInput from '../components/MTextInput'
+import ViewBackground from '@/components/ViewBackground'
+import HeroTitle from '@/components/HeroTitle'
+import HeroButton from '@/components/HeroButton'
+import MTextInput from '@/components/MTextInput'
 
-import { login } from '../modules/authenticate'
+import { login } from '@/modules/authenticate'
 
 export default function Login({ navigation }) {
   const [error, setError] = useState(false)

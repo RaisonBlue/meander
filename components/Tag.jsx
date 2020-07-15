@@ -1,5 +1,4 @@
 import React from 'react'
-import path from 'path'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { useFonts, BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
 
@@ -11,7 +10,7 @@ export default ({ icon, value, units }) => {
   return fontsLoaded
   ? (
     <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-      <Image style={styles.icon} source={require(path.join(__dirname, `../assets/icons/${icon}.svg`))}/>
+      <Image style={styles.icon} source={require(`@/assets/icons/${icon}.svg`)}/>
       <Text style={styles.value}>{ value }</Text>
       <Text style={styles.unit}>{ units }</Text>
     </View>

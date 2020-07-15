@@ -14,8 +14,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode='none' >
-        <Stack.Screen name="DayFeed" component={DayFeed} />
         <Stack.Screen name="DayStory" component={DayStory} />
+        <Stack.Screen name="DayFeed" component={DayFeed} />
         <Stack.Screen name="DayPhoto" component={DayPhoto} />
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
