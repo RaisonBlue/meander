@@ -5,15 +5,22 @@ import ViewBackground from '../components/ViewBackground'
 import Bar from '../components/Bar'
 import ScreenTitle from '../components/ScreenTitle'
 import ScreenSubTitle from '../components/ScreenSubTitle'
+import { toDate } from '../modules/timestamp'
 
-export default function App({ navigation }) {
+const SplashTitle = ({day}) => day
+  ? (
+    <Bar>
+      <ScreenTitle title={ day.location } />
+      <ScreenSubTitle title={ toDate(day.date) } />
+    </Bar>
+  )
+  : (<View />)
+
+export default ({ navigation, day }) => {
   return (
-    <ViewBackground bgSrc={require('../assets/bg_cappadocia.jpg')}>
+    <ViewBackground cover={{ uri: day.bgUrl }}>
       <View style={styles.mainWrapper}>
-        <Bar>
-          <ScreenTitle title="Cappadoce" />
-          <ScreenSubTitle title="11.07.2020" />
-        </Bar>
+        <SplashTitle day={day} />
       </View>
     </ViewBackground>
   );

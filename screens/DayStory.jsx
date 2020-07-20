@@ -7,30 +7,33 @@ import ScreenTitle from '../components/ScreenTitle'
 import ScreenSubTitle from '../components/ScreenSubTitle'
 import Tag from '../components/Tag'
 import Paragraph from '../components/Paragraph'
+import RemoteControl from '../components/RemoteControl'
+import { currentDay } from '../stores/current-day'
+import { useSelector } from 'react-redux'
+import { toDate } from '../modules/timestamp'
 
 export default function App({ navigation }) {
+  const day = useSelector(currentDay)
+
   return (
-    <ViewBackground blurRadius={4} bgSrc={require('../assets/bg_cappadocia.jpg')}>
-      <ScrollView style={styles.mainWrapper}>
-        <View>
-          <ScreenTitle title="Cappadoce" />
-          <ScreenSubTitle title="11.07.2020" />
-        </View>
-        <Bar style={{ paddingVertical: 50 }}>
-          <Tag icon="sun" value="31" units="°C" />
-          <Tag icon="walk" value="42" units="km" />
-          <Tag icon="photo" value="121" units="" />
-        </Bar>
-        <View style={{ flex: 1 }}>
-          <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in quam et leo tristique ullamcorper eget sit amet dui. Nullam convallis, mi id ornare cursus, ex lorem aliquet velit, sit amet volutpat ligula quam et libero. Pellentesque id justo tortor. Mauris augue lorem, volutpat et viverra non, condimentum sit amet eros. In hac habitasse platea dictumst. Quisque rutrum pulvinar mi, vel porta felis sagittis id. Donec vel est massa. In ipsum urna, volutpat eget pellentesque vel, auctor id nunc. Suspendisse potenti. Nullam imperdiet placerat arcu eget fermentum.
-            {"\n"}
-            {"\n"}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in quam et leo tristique ullamcorper eget sit amet dui. Nullam convallis, mi id ornare cursus, ex lorem aliquet velit, sit amet volutpat ligula quam et libero. Pellentesque id justo tortor. Mauris augue lorem, volutpat et viverra non, condimentum sit amet eros. In hac habitasse platea dictumst. Quisque rutrum pulvinar mi, vel porta felis sagittis id. Donec vel est massa. In ipsum urna, volutpat eget pellentesque vel, auctor id nunc. Suspendisse potenti. Nullam imperdiet placerat arcu eget fermentum.
-          </Paragraph>
-        </View>
-      </ScrollView>
-    </ViewBackground>
+    <RemoteControl navigate={navigation.navigate} left="DayFeed" right="DayPhoto">
+      <ViewBackground blurRadius={4} cover={{ uri: day.bgUrl }}>
+        <ScrollView style={styles.mainWrapper}>
+          <View>
+            <ScreenTitle title={day.location} />
+            <ScreenSubTitle title={toDate(day.date)} />
+          </View>
+          <Bar style={{ paddingVertical: 50 }}>
+            <Tag icon="sun" value={day.temperature} units="°C" />
+            <Tag icon="walk" value={day.kilometers} units="km" />
+            <Tag icon="photo" value={day.photosCount} units="" />
+          </Bar>
+          <View style={{ flex: 1 }}>
+            <Paragraph>{day.story}</Paragraph>
+          </View>
+        </ScrollView>
+      </ViewBackground>
+    </RemoteControl>
   );
 }
 

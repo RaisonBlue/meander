@@ -5,7 +5,7 @@ import ViewBackground from '../components/ViewBackground'
 import HeroTitle from '../components/HeroTitle'
 import HeroButton from '../components/HeroButton'
 
-export default function App({ navigation }) {
+export default function ({ navigation }) {
   return (
     <ViewBackground>
       <View style={styles.mainWrapper}>
