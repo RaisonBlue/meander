@@ -5,33 +5,41 @@ import ViewBackground from '../components/ViewBackground'
 import RemoteControl from '../components/RemoteControl'
 import ScreenTitle from '../components/ScreenTitle'
 import ScreenSubTitle from '../components/ScreenSubTitle'
+import Photo from '../components/Photo'
 import Grid from '../components/Grid'
 import { currentDay } from '../stores/current-day'
-import { editingDay, update } from '../stores/editing-day'
+import { editingDay, update, addPhoto } from '../stores/editing-day'
 import { useSelector, useDispatch } from 'react-redux'
 import { toDate } from '../modules/timestamp'
 import burstCache from '../modules/cache-burster'
 
-export default function App({ navigation }) {
+const MemoizedGrid = React.memo(Grid,
+  (prev, next) => prev.data.length === next.data.length
+)
+
+export default ({ navigation }) => {
   const day = useSelector(currentDay)
   const newDay = useSelector(editingDay)
   const dispatch = useDispatch()
   const [error] = useState(false)
-  const [location, setLocation] = useState('')
-  const [date, setDate] = useState('')
-  const onEnd = () => { dispatch(update({ location, date })) }
+
+  const togglePhoto = ([selected, photo]) =>{
+    selected
+      ? dispatch(addPhoto(photo))
+      : dispatch(removePhoto(photo))
+  }
 
   return (
-    <RemoteControl navigate={navigation.navigate} bottom="DayFeed" right={onEnd}>
-      <ViewBackground blurRadius={4} cover={{ uri: day.bgUrl }}>
+    <RemoteControl navigate={navigation.navigate} bottom="DayFeed" right={() => navigation.navigate('NewDayCover')}>
+      <ViewBackground blurRadius={4} cover={{ uri: day.cover }}>
         <ScrollView style={styles.mainWrapper}>
           <View style={{ paddingHorizontal: 20, paddingVertical: 50}}>
             <ScreenTitle title={ newDay.location } />
-            <ScreenSubTitle title={ toDate(newDay.date) } />
+            <ScreenSubTitle title="Just keep the nicest!" />
           </View>
-          <Grid data={Array(120).fill({}).map(() => ({source: burstCache('https://picsum.photos/200/300')}))} cols={4}>
-            <Image style={{ height: 95, width: 95, margin: 2 }} />
-          </Grid>
+          <MemoizedGrid data={Array(120).fill({}).map(() => ({source: burstCache('https://picsum.photos/200/300')}))} cols={4}>
+            <Photo selectable={true} onSelect={togglePhoto} />
+          </MemoizedGrid>
         </ScrollView>
       </ViewBackground>
     </RemoteControl>

@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 const drawItem = template => (item) => {
   return React.createElement(
     template.type,
-    { ...template.props, ...item}
+    { ...template.props, item }
   )
 }
 

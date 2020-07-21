@@ -18,7 +18,7 @@ const SplashTitle = ({day}) => day
 
 export default ({ navigation, day }) => {
   return (
-    <ViewBackground cover={{ uri: day.bgUrl }}>
+    <ViewBackground cover={{ uri: day.cover }}>
       <View style={styles.mainWrapper}>
         <SplashTitle day={day} />
       </View>

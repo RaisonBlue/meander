@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import ViewBackground from '../components/ViewBackground'
 import HeroTitle from '../components/HeroTitle'
-import MTextInput from '../components/MTextInput'
 import RemoteControl from '../components/RemoteControl'
+import MTextInput from '../components/MTextInput'
 import { currentDay } from '../stores/current-day'
 import { editingDay, update } from '../stores/editing-day'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,24 +14,22 @@ export default function App({ navigation }) {
   const newDay = useSelector(editingDay)
   const dispatch = useDispatch()
   const [error] = useState(false)
-  const [location, setLocation] = useState('')
-  const [date, setDate] = useState('')
+  const [story, setStory] = useState('')
   const onEnd = () => { 
-    dispatch(update({ location, date }))
-    navigation.navigate('NewDayPhoto')
+    dispatch(update({ story }))
+    // navigation.navigate('DayFeed') TODO push to api
   }
 
   return (
     <RemoteControl navigate={navigation.navigate} left="NewDayCover" bottom="DayFeed" right={onEnd}>
-      <ViewBackground blurRadius={4} cover={{ uri: day.bgUrl }}>
+      <ViewBackground blurRadius={4} cover={{ uri: day.cover }}>
       <View style={styles.mainWrapper}>
         <View style={ styles.topHalf }>
           <HeroTitle title='New Day' />
           <Text>{ error }</Text>
         </View>
         <View style={ styles.bottomHalf }>
-          <MTextInput placeholder ="Location" value={location} setValue={setLocation} maxLength={20} mutators={[s => s.toLowerCase()]} />
-          <MTextInput placeholder ="Date" value={date} setValue={setDate} maxLength={50} onSubmitEditing={() => authenticate(name, date)} />
+          <MTextInput placeholder ="Story" value={story} setValue={setStory} maxLength={20} />
         </View>
       </View>
       </ViewBackground>

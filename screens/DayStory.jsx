@@ -17,7 +17,7 @@ export default function App({ navigation }) {
 
   return (
     <RemoteControl navigate={navigation.navigate} left="DayFeed" right="DayPhoto">
-      <ViewBackground blurRadius={4} cover={{ uri: day.bgUrl }}>
+      <ViewBackground blurRadius={4} cover={{ uri: day.cover }}>
         <ScrollView style={styles.mainWrapper}>
           <View>
             <ScreenTitle title={day.location} />

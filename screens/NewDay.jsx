@@ -17,13 +17,13 @@ export default function App({ navigation }) {
   const [location, setLocation] = useState('')
   const [date, setDate] = useState('')
   const onEnd = () => { 
-    dispatch(update({ location, date }))
+    dispatch(update({ location, date, photos: [] }))
     navigation.navigate('NewDayPhoto')
   }
 
   return (
     <RemoteControl navigate={navigation.navigate} bottom="DayFeed" right={onEnd}>
-      <ViewBackground blurRadius={4} cover={{ uri: day.bgUrl }}>
+      <ViewBackground blurRadius={4} cover={{ uri: day.cover }}>
       <View style={styles.mainWrapper}>
         <View style={ styles.topHalf }>
           <HeroTitle title='New Day' />
@@ -31,7 +31,7 @@ export default function App({ navigation }) {
         </View>
         <View style={ styles.bottomHalf }>
           <MTextInput placeholder ="Location" value={location} setValue={setLocation} maxLength={20} mutators={[s => s.toLowerCase()]} />
-          <MTextInput placeholder ="Date" value={date} setValue={setDate} maxLength={50} onSubmitEditing={() => authenticate(name, date)} />
+          <MTextInput placeholder ="Date" value={date} setValue={setDate} maxLength={50} onSubmitEditing={onEnd} />
         </View>
       </View>
       </ViewBackground>

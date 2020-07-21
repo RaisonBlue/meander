@@ -7,12 +7,17 @@ const dayEditorSlice = createSlice({
   },
   reducers: {
     update: (state, action) => {
-      console.log('Updating', state.day, action.payload)
       state.day = {...state.day, ...action.payload}
+    },
+    addPhoto: (state, action) => {
+      state.day.photos.push(action.payload)
+    },
+    removePhoto: (state, action) => {
+      state.day.photos = state.day.photos.filter(p => p.id === action.payload.id)
     }
   }
 })
 
 export const editingDay = state => state.editingDay.day
-export const { update } = dayEditorSlice.actions
+export const { update, addPhoto } = dayEditorSlice.actions
 export default dayEditorSlice.reducer
