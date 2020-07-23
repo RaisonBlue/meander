@@ -34,7 +34,7 @@ export default function App({ navigation }) {
       </View>
       </ViewBackground>
     </RemoteControl>
-  );
+  )
 }
 
 const alignedCenter = { flex: 1, alignItems: "center", justifyContent: "center" }

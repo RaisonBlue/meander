@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, View, Image } from 'react-native'
 import ViewBackground from '../components/ViewBackground'
 import RemoteControl from '../components/RemoteControl'
@@ -12,6 +12,8 @@ import { editingDay, update, addPhoto } from '../stores/editing-day'
 import { useSelector, useDispatch } from 'react-redux'
 import { toDate } from '../modules/timestamp'
 import burstCache from '../modules/cache-burster'
+import { PermissionsAndroid } from "react-native";
+import { CameraRoll } from "react-native"
 
 const MemoizedGrid = React.memo(Grid,
   (prev, next) => prev.data.length === next.data.length
@@ -22,6 +24,10 @@ export default ({ navigation }) => {
   const newDay = useSelector(editingDay)
   const dispatch = useDispatch()
   const [error] = useState(false)
+
+  useEffect(async () => {
+    await hasAndroidPermission().then(x => console.log(x))
+  })
 
   const togglePhoto = ([selected, photo]) =>{
     selected
@@ -62,3 +68,16 @@ const styles = StyleSheet.create({
     paddingTop: 50
   },
 })
+
+
+async function hasAndroidPermission() {
+  const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+
+  const hasPermission = await PermissionsAndroid.check(permission);
+  if (hasPermission) {
+    return true;
+  }
+
+  const status = await PermissionsAndroid.request(permission);
+  return status === 'granted';
+}
